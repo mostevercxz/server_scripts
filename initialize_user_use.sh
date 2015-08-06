@@ -54,4 +54,5 @@ install_python_dev
 
 # Change prompt showing ways
 sed -i 's#\\w#\\W#' ~/.bashrc
+echo "alias rm=\"rm -i\"" >> ~/.bashrc
 source ~/.bashrc
