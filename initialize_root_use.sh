@@ -29,5 +29,6 @@ echo " "
 
 # 2.executed by root, install some commonly used packages
 echo "--- Ready to install Packages"
-sudo apt-get install python-virtualenv git -y
+echo "--- install Python dev Packages"
+sudo apt-get install python-virtualenv python-dev git -y
 echo "--- Finish installing Packages"

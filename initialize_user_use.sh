@@ -55,4 +55,20 @@ install_python_dev
 # Change prompt showing ways
 sed -i 's#\\w#\\W#' ~/.bashrc
 echo "alias rm=\"rm -i\"" >> ~/.bashrc
+function install_ruby_dev()
+{
+  ruby_dir=$user_home_dir/develop/ruby
+	create_if_not_exist $ruby_dir
+  cd $ruby_dir
+  sudo apt-get update
+  sudo apt-get install ruby -y
+  ruby --version
+  sudo gem install bundler
+  git clone git@github.com:mostevercxz/mostevercxz.github.io.git gitblog
+  cd gitblog
+  bundle install
+}
+
+install_ruby_dev
+
 source ~/.bashrc
