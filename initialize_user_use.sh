@@ -57,13 +57,23 @@ sed -i 's#\\w#\\W#' ~/.bashrc
 echo "alias rm=\"rm -i\"" >> ~/.bashrc
 function install_ruby_dev()
 {
+  # install rvm
+  gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+  \curl -sSL https://get.rvm.io | bash
+  source /home/ubuntu/.rvm/scripts/rvm
+  echo "source /home/ubuntu/.rvm/scripts/rvm" >> ~/.bashrc
+
   ruby_dir=$user_home_dir/develop/ruby
 	create_if_not_exist $ruby_dir
   cd $ruby_dir
-  sudo apt-get update
-  sudo apt-get install ruby -y
-  ruby --version
-  sudo gem install bundler
+  # Check ruby version >= 2.0.0
+  ruby_version=`ruby --version | awk '{print $2}' | awk -F'p' '{print $1}' | awk -F'.' '{print $1}'`
+  if [ $ruby_version -gt 1 ]; then
+          echo "Ruby version >= 2.0, is OK"
+  else
+          rvm install 2.2.2
+  fi
+  gem install bundler
   git clone git@github.com:mostevercxz/mostevercxz.github.io.git gitblog
   cd gitblog
   bundle install
